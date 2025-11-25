@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-    baseURL: "https://fone-tik-t378-extf6riv1-gunjans-projects-d8c48229.vercel.app/", // backend URL
+    baseURL: "https://fone-tik-t378.vercel.app/", // backend URL
     // baseURL: "http://localhost:8000", // for local development
 });
 
