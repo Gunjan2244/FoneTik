@@ -1,6 +1,7 @@
 fastapi
 uvicorn
 motor
+dotenv
 python-jose[cryptography]
 passlib[bcrypt]
 python-multipart
