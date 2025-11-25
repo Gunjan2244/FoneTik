@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import API from '../api';
 import { Link } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 
@@ -18,15 +18,11 @@ const Dashboard = () => {
 
     const fetchData = async () => {
         try {
-            const ordersRes = await axios.get('http://localhost:8000/orders/', {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const ordersRes = await API.get('/orders/');
             setOrders(ordersRes.data);
 
             if (userType === 'technician') {
-                const complaintsRes = await axios.get('http://localhost:8000/complaints/', {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
+                const complaintsRes = await API.get('/complaints/');
                 setComplaints(complaintsRes.data);
             }
         } catch (error) {
@@ -40,9 +36,7 @@ const Dashboard = () => {
 
     const handleStatusUpdate = async (orderId, newStatus) => {
         try {
-            await axios.put(`http://localhost:8000/orders/${orderId}?status_update=${newStatus}`, {}, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            await API.put(`/orders/${orderId}?status_update=${newStatus}`, {});
             fetchData();
         } catch (error) {
             console.error("Error updating status", error);
@@ -51,9 +45,7 @@ const Dashboard = () => {
 
     const handleResolveComplaint = async (complaintId) => {
         try {
-            await axios.put(`http://localhost:8000/complaints/${complaintId}`, {}, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            await API.put(`/complaints/${complaintId}`, {});
             fetchData();
         } catch (error) {
             console.error("Error resolving complaint", error);
@@ -63,9 +55,7 @@ const Dashboard = () => {
     const handleDeleteOrder = async (orderId) => {
         if (window.confirm("Are you sure you want to delete this order?")) {
             try {
-                await axios.delete(`http://localhost:8000/orders/${orderId}`, {
-                    headers: { Authorization: `Bearer ${token}` }
-                });
+                await API.delete(`/orders/${orderId}`);
                 fetchData();
             } catch (error) {
                 console.error("Error deleting order", error);

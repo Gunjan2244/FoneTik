@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import API from '../api';
 
 const NewOrder = () => {
     const [deviceModel, setDeviceModel] = useState('');
@@ -29,12 +29,10 @@ const NewOrder = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:8000/orders/', {
+            await API.post('/orders/', {
                 device_model: deviceModel,
                 issue_description: issueDescription,
                 location: location
-            }, {
-                headers: { Authorization: `Bearer ${token}` }
             });
             navigate('/dashboard');
         } catch (error) {

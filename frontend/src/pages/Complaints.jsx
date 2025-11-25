@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import API from '../api';
 
 const Complaints = () => {
     const [complaints, setComplaints] = useState([]);
@@ -9,9 +9,7 @@ const Complaints = () => {
 
     const fetchComplaints = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/complaints/', {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            const response = await API.get('/complaints/');
             setComplaints(response.data);
         } catch (error) {
             console.error("Error fetching complaints", error);
@@ -25,11 +23,9 @@ const Complaints = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:8000/complaints/', {
+            await API.post('/complaints/', {
                 order_id: orderId,
                 description: description
-            }, {
-                headers: { Authorization: `Bearer ${token}` }
             });
             setOrderId('');
             setDescription('');
