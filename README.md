@@ -391,7 +391,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 <div align="center">
 
-Made with ❤️ by the FoneTik Team
+Made with ❤️ by the Gunjan, Harshit and Ashutosh
 
 ⭐ Star us on GitHub if you like this project!
 
